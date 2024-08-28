@@ -1,15 +1,19 @@
 package com.nttdata.stepsdefinitions;
 
 import com.nttdata.steps.SuaceLabsLoginSteps;
+import com.nttdata.steps.SuaceLabsCarritoSteps;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
 public class SauceLabsStepDef {
     @Steps
-    SuaceLabsLoginSteps login;
+    //SuaceLabsLoginSteps login;
+    SuaceLabsCarritoSteps carrito;
 
+    /*
     @When("ingreso el usuario {string}")
     public void ingresoElUsuario(String usuario) {
         login.ingresoElUsuario(usuario);
@@ -42,5 +46,29 @@ public class SauceLabsStepDef {
     @And("valido el login OK")
     public void validoElLoginOK() {
         login.validacionLogin();
+    } */
+
+    @Given("estoy en la aplicación de SauceLabs")
+    public void estoyEnLaAplicaciónDeSauceLabs() {
+        carrito.validarAplicacionSauceLabs();
+    }
+
+    @And("valido que carguen correctamente los productos en la galeria")
+    public void validoQueCarguenCorrectamenteLosProductosEnLaGaleria() {
+        carrito.validarProductos();
+    }
+
+    @When("agrego {string} del siguiente producto {string}")
+    public void agregoDelSiguienteProducto(String unidades, String nombreProducto) {
+        carrito.clickEnProducto(nombreProducto);
+        carrito.agregarUnidadesDeProducto(unidades);
+        carrito.clickEnAddToCart();
+    }
+
+    @Then("valido que el carrito de compra se actualice correctamente")
+    public void validoQueElCarritoDeCompraSeActualiceCorrectamente() {
+        carrito.validarbadgeCarrito();
+        carrito.abrirCarrito();
+        carrito.validarProductoEnCarrito();
     }
 }
