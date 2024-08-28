@@ -28,6 +28,9 @@ public class SauceDetailProductScreen extends PageObject {
     }
 
     public void agregarUnidadesDeProducto(String unidades) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), 10); // Espera de hasta 10 segundos
+        wait.until(ExpectedConditions.visibilityOf(btnMas)); // Aseguramos que el botón 'plus' sea visible
+
         for (int i = 1; i < Integer.parseInt(unidades); i++) {  // Empezamos en 1 porque por defecto ya hay 1 unidad
             btnMas.click();
         }
